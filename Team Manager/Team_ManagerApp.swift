@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct Team_ManagerApp: App {
+    // Register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var authController = AuthController()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                ContentView()
+                    .environmentObject(authController)
+                
+            }
         }
     }
 }
