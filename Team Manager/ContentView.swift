@@ -18,8 +18,7 @@ struct ContentView: View {
             case .notAuthenticated:
                 AuthView()
             case .authenticated:
-                tempView()
-           
+                BottomNavigationView()
             }
         }
     }

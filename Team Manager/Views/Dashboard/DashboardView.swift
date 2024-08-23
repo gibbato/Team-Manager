@@ -18,6 +18,7 @@ struct tempView: View {
                 print(error.localizedDescription)
             }
         }
+        
     }
 }
 
