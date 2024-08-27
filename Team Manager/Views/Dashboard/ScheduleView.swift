@@ -10,6 +10,7 @@ import SwiftUI
 struct ScheduleView: View {
     @StateObject private var viewModel = ScheduleViewModel()
     @EnvironmentObject private var authController: AuthController
+    @EnvironmentObject private var selectedTeamManager: SelectedTeamManager
     
     @State private var showingTeamSheet = false
     @State private var isCreatingTeam = false
@@ -24,11 +25,11 @@ struct ScheduleView: View {
                     
                     Spacer()
                 }
-                .navigationTitle(viewModel.currentTeam?.name ?? "No Team")
+                .navigationTitle(selectedTeamManager.currentTeam?.name ?? "No Team")
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {
-                            Text(viewModel.currentTeam?.name ?? "No Team")
+                            Text(selectedTeamManager.currentTeam?.name ?? "No Team")
                                 .font(.headline)
                                 .foregroundColor(.primary)
                                 .onTapGesture {
@@ -45,11 +46,10 @@ struct ScheduleView: View {
                 }
             }
             
-            // Overlay the dropdown menu when it is active
             if viewModel.showDropdown {
                 Color.white
                     .ignoresSafeArea()
-                    .opacity(0.95)  // Ensure it is not see-through
+                    .opacity(0.95)
                     .overlay(
                         DropdownMenu(viewModel: viewModel, showingTeamSheet: $showingTeamSheet, isCreatingTeam: $isCreatingTeam)
                             .transition(.move(edge: .top).combined(with: .opacity))
@@ -81,6 +81,7 @@ struct ScheduleView: View {
 
 struct DropdownMenu: View {
     @ObservedObject var viewModel: ScheduleViewModel
+    @EnvironmentObject var selectedTeamManager: SelectedTeamManager
     @Binding var showingTeamSheet: Bool
     @Binding var isCreatingTeam: Bool
 
@@ -88,13 +89,14 @@ struct DropdownMenu: View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(viewModel.userTeams) { team in
                 Button(action: {
+                    selectedTeamManager.updateCurrentTeam(team)  // Update the selected team
                     viewModel.currentTeam = team
                     viewModel.showDropdown = false
                 }) {
                     Text(team.name)
                         .padding(.vertical, 5)
                         .padding(.horizontal)
-                        .background(viewModel.currentTeam?.id == team.id ? Color.gray.opacity(0.2) : Color.clear)
+                        .background(selectedTeamManager.currentTeam?.id == team.id ? Color.gray.opacity(0.2) : Color.clear)
                         .cornerRadius(5)
                 }
             }
@@ -129,4 +131,5 @@ struct DropdownMenu: View {
 #Preview {
     ScheduleView()
         .environmentObject(AuthController())
+        .environmentObject(SelectedTeamManager())
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var authController: AuthController
+    @EnvironmentObject private var selectedTeamManager: SelectedTeamManager
     
     var body: some View {
         Group {
@@ -27,4 +28,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environmentObject(AuthController())
+        .environmentObject(SelectedTeamManager())
 }

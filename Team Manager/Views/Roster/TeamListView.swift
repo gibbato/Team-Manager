@@ -3,6 +3,7 @@ import SwiftUI
 struct TeamListView: View {
     @StateObject private var viewModel = TeamController()
     @EnvironmentObject private var authController: AuthController
+    @EnvironmentObject private var selectedTeamManager: SelectedTeamManager
     @State private var showingAddPlayerSheet = false
     
     let columns = [
@@ -12,23 +13,6 @@ struct TeamListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Dropdown to switch between teams
-                if let selectedTeam = viewModel.selectedTeam {
-                    Menu {
-                        ForEach(viewModel.teams) { team in
-                            Button(team.name) {
-                                viewModel.selectedTeam = team
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Text(selectedTeam.name)
-                            Image(systemName: "chevron.down")
-                        }
-                    }
-                    .padding()
-                }
-
                 // Team Roster
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
@@ -43,12 +27,12 @@ struct TeamListView: View {
                     .padding([.horizontal, .bottom])
                 }
             }
-            .navigationTitle("Roster")
+            .navigationTitle(selectedTeamManager.currentTeam?.name ?? "Roster")
             .background(Color.whiteSmoke)
             .preferredColorScheme(.dark)
             .sheet(isPresented: $showingAddPlayerSheet) {
                 AddPlayerView { newPlayer in
-                    if let newPlayer = newPlayer, let teamID = viewModel.selectedTeam?.id {
+                    if let newPlayer = newPlayer, let teamID = selectedTeamManager.currentTeam?.id {
                         let teamMemberInfo = TeamMemberInfo(id: newPlayer.id, role: "player")
                         viewModel.addTeamMember(teamMemberInfo, to: teamID)
                     }
@@ -63,8 +47,8 @@ struct TeamListView: View {
             }
         }
         .onAppear {
-            if let userID = authController.userId {
-                viewModel.loadTeams(for: userID)
+            if let currentTeam = selectedTeamManager.currentTeam {
+                viewModel.loadTeamMembers(for: currentTeam.id)
             }
         }
         .alert(isPresented: Binding<Bool>(
@@ -81,7 +65,8 @@ struct PlayerCardView: View {
     
     var body: some View {
         VStack {
-            if let url = URL(string: member.id) { // Assuming ID corresponds to a URL
+            // Assuming ID corresponds to a URL for profile picture
+            if let url = URL(string: member.id) {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
@@ -122,4 +107,5 @@ struct PlayerCardView: View {
 #Preview {
     TeamListView()
         .environmentObject(AuthController())
+        .environmentObject(SelectedTeamManager())
 }

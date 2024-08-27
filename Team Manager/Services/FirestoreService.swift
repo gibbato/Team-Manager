@@ -101,6 +101,23 @@ class FirestoreService {
                completion(.success(teams))
            }
        }
+    
+    // Fetch the team by ID
+       func fetchTeam(byID teamID: String, completion: @escaping (Result<Team, Error>) -> Void) {
+           db.collection("teams").document(teamID).getDocument { document, error in
+               if let error = error {
+                   completion(.failure(error))
+                   return
+               }
+
+               guard let document = document, document.exists, let team = try? document.data(as: Team.self) else {
+                   completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
+                   return
+               }
+
+               completion(.success(team))
+           }
+       }
 
     // Function to fetch team members for a specific team
     func fetchTeamMembers(for teamID: String, completion: @escaping (Result<[TeamMemberInfo], Error>) -> Void) {

@@ -36,7 +36,7 @@ class TeamController: ObservableObject {
             }
         }
 
-        private func loadTeamMembers(for teamID: String) {
+        func loadTeamMembers(for teamID: String) {
             firestoreService.fetchTeamMembers(for: teamID) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {

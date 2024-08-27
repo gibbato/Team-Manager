@@ -46,6 +46,7 @@
 		CBBE7F782C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F772C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift */; };
 		CBBE7F7A2C7DB3520099A627 /* CreateTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F792C7DB3520099A627 /* CreateTeamView.swift */; };
 		CBBE7F7C2C7DB3640099A627 /* JoinTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F7B2C7DB3640099A627 /* JoinTeamView.swift */; };
+		CBBE7F7E2C7DB54D0099A627 /* SelectedTeamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F7D2C7DB54D0099A627 /* SelectedTeamManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		CBBE7F772C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrJoinTeamViewModel.swift; sourceTree = "<group>"; };
 		CBBE7F792C7DB3520099A627 /* CreateTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamView.swift; sourceTree = "<group>"; };
 		CBBE7F7B2C7DB3640099A627 /* JoinTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamView.swift; sourceTree = "<group>"; };
+		CBBE7F7D2C7DB54D0099A627 /* SelectedTeamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTeamManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				CBBE7F4D2C7826210099A627 /* ImageUtilities.swift */,
+				CBBE7F7D2C7DB54D0099A627 /* SelectedTeamManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBBE7F7E2C7DB54D0099A627 /* SelectedTeamManager.swift in Sources */,
 				CBA4C1562C77219A0033BA20 /* Event.swift in Sources */,
 				CBA4C1632C7727220033BA20 /* TeamListView.swift in Sources */,
 				CBBE7F4E2C7826210099A627 /* ImageUtilities.swift in Sources */,
