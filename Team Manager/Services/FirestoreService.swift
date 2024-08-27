@@ -7,16 +7,172 @@
 import FirebaseCore
 import FirebaseFirestore
 
-
-
 class FirestoreService {
     private let db = Firestore.firestore()
     
     /*
      
+     TEAM FUNCTIONS
+     
+     */
+    
+    // Create a new team with a unique invitation code and set the manager as a member
+      func createTeam(_ team: Team, completion: @escaping (Result<Void, Error>) -> Void) {
+          generateUniqueInvitationCode { [weak self] codeResult in
+              switch codeResult {
+              case .success(let code):
+                  var teamWithCode = team
+                  teamWithCode.invitationCode = code
+                  teamWithCode.members.append(team.managerID) // Add manager to members
+                  do {
+                      try self?.db.collection("teams").document(teamWithCode.id).setData(from: teamWithCode)
+                      completion(.success(()))
+                  } catch let error {
+                      completion(.failure(error))
+                  }
+              case .failure(let error):
+                  completion(.failure(error))
+              }
+          }
+      }
+
+    // Function to generate a unique invitation code
+    private func generateUniqueInvitationCode(completion: @escaping (Result<String, Error>) -> Void) {
+        let code = UUID().uuidString.prefix(8).uppercased() // Generate a random 8-character code
+        db.collection("teams").whereField("invitationCode", isEqualTo: code).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if snapshot?.documents.isEmpty == true {
+                completion(.success(String(code))) // Code is unique
+            } else {
+                self.generateUniqueInvitationCode(completion: completion) // Retry if not unique
+            }
+        }
+    }
+
+    // Add a member to a team via invitation code
+    func joinTeam(byCode code: String, memberID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        db.collection("teams").whereField("invitationCode", isEqualTo: code).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let document = snapshot?.documents.first {
+                let teamID = document.documentID
+                self.addMemberToTeam(teamID: teamID, memberID: memberID, completion: completion)
+            } else {
+                completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
+            }
+        }
+    }
+
+    // Add a member to a team
+    func addMemberToTeam(teamID: String, memberID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let teamRef = db.collection("teams").document(teamID)
+        teamRef.updateData([
+            "members": FieldValue.arrayUnion([memberID])
+        ]) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+
+
+    // Function to send SMS invitation (mocked for now)
+    func sendSMSInvitation(to phoneNumber: String, teamName: String, invitationCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        // Implement actual SMS sending logic here
+        print("Sending SMS invitation to \(phoneNumber) to join team \(teamName) with code \(invitationCode)")
+        completion(.success(()))
+    }
+
+     
+    func fetchTeams(for userID: String, completion: @escaping (Result<[Team], Error>) -> Void) {
+            db.collection("teams").whereField("members", arrayContains: userID).getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    completion(.success([])) // No teams found
+                    return
+                }
+
+                let teams = documents.compactMap { document -> Team? in
+                    return try? document.data(as: Team.self)
+                }
+                completion(.success(teams))
+            }
+        }
+
+        func fetchTeamMembers(for teamID: String, completion: @escaping (Result<[TeamMember], Error>) -> Void) {
+            db.collection("teamMembers").whereField("teamID", isEqualTo: teamID).getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    completion(.success([])) // No members found
+                    return
+                }
+
+                let members = documents.compactMap { document -> TeamMember? in
+                    return try? document.data(as: TeamMember.self)
+                }
+                print(members)
+                completion(.success(members))
+            }
+        }
+    
+    // Fetch the team by ID or other criteria
+      func fetchTeam(byID teamID: String, completion: @escaping (Result<Team, Error>) -> Void) {
+          db.collection("teams").document(teamID).getDocument { document, error in
+              if let error = error {
+                  completion(.failure(error))
+                  return
+              }
+
+              guard let document = document, document.exists, let team = try? document.data(as: Team.self) else {
+                  completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
+                  return
+              }
+
+              completion(.success(team))
+          }
+      }
+
+      // Fetch team members by their IDs
+      func fetchTeamMembers(for team: Team, completion: @escaping (Result<[TeamMember], Error>) -> Void) {
+          let memberIDs = team.members
+          let query = db.collection("teamMembers").whereField("id", in: memberIDs)
+
+          query.getDocuments { snapshot, error in
+              if let error = error {
+                  completion(.failure(error))
+                  return
+              }
+
+              guard let documents = snapshot?.documents else {
+                  completion(.success([])) // No members found
+                  return
+              }
+
+              let members = documents.compactMap { document -> TeamMember? in
+                  return try? document.data(as: TeamMember.self)
+              }
+              completion(.success(members))
+          }
+      }
+    
+    
+    
+    
+    
+    /*
      
      TEAM MEMBER FUNCTIONS
-     
      
      */
     
@@ -30,6 +186,7 @@ class FirestoreService {
         }
     }
     
+    // Fetch all TeamMember documents
     func fetchTeamMembers(completion: @escaping (Result<[TeamMember], Error>) -> Void) {
         db.collection("teamMembers").getDocuments { snapshot, error in
             if let error = error {
@@ -49,6 +206,7 @@ class FirestoreService {
         }
     }
     
+    // Delete a TeamMember document
     func deleteTeamMember(_ teamMember: TeamMember, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("teamMembers").document(teamMember.id).delete { error in
             if let error = error {
@@ -59,17 +217,8 @@ class FirestoreService {
         }
     }
     
-    
-    /*
-     
-     
-     PLAYER FUNCTIONS
-     
-     
-     */
-    
+    // Update the profile image of a TeamMember document
     func updateTeamMemberProfileImage(teamMemberID: String, profileImageURL: URL, completion: @escaping (Result<Void, Error>) -> Void) {
-        let db = Firestore.firestore()
         let teamMemberRef = db.collection("teamMembers").document(teamMemberID)
         
         teamMemberRef.updateData([
@@ -84,22 +233,33 @@ class FirestoreService {
     }
     
     // Fetch a TeamMember document by UID
-      func fetchTeamMember(byUID uid: String, completion: @escaping (Result<TeamMember?, Error>) -> Void) {
-          let teamMemberRef = db.collection("teamMembers").document(uid)
-          
-          teamMemberRef.getDocument { document, error in
-              if let error = error {
-                  completion(.failure(error))
-                  return
-              }
-              
-              if let document = document, document.exists {
-                  let teamMember = try? document.data(as: TeamMember.self)
-                  completion(.success(teamMember))
-              } else {
-                  completion(.success(nil))
-              }
-          }
-      }
+    func fetchTeamMember(byUID uid: String, completion: @escaping (Result<TeamMember?, Error>) -> Void) {
+        let teamMemberRef = db.collection("teamMembers").document(uid)
+        
+        teamMemberRef.getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let document = document, document.exists {
+                let teamMember = try? document.data(as: TeamMember.self)
+                completion(.success(teamMember))
+            } else {
+                completion(.success(nil))
+            }
+        }
+    }
     
+    // Update a TeamMember document (for updating name, email, etc.)
+    // Update only the fields that have changed
+    func updateTeamMember(_ teamMemberID: String, with data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        db.collection("teamMembers").document(teamMemberID).updateData(data) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
 }

@@ -10,6 +10,10 @@ import SwiftUI
 struct BottomNavigationView: View {
     var body: some View {
         TabView {
+            ScheduleView()
+                .tabItem {
+                    Label("Schedule", systemImage: "calendar")
+                }
             TeamListView()
                 .tabItem {
                     Label("Roster", systemImage: "house")

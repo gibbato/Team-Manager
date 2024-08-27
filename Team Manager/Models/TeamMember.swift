@@ -16,5 +16,15 @@ struct TeamMember: Codable, Identifiable {
     var isAvailable: Bool = true
     var profilePictureURL: URL? = nil
     
-   
+    var primaryPosition: String?
+    var secondaryPosition: String?
+    var jerseyNumber: Int?
+    var throwingHand: String?
+    var battingStance: String?
+    
+    
+    
 }
+    
+   
+

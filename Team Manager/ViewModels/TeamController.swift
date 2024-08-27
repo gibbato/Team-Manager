@@ -30,6 +30,36 @@ class TeamController: ObservableObject {
             }
         }
     }
+    
+    func loadTeam(for userID: String) {
+           firestoreService.fetchTeams(for: userID) { [weak self] result in
+               switch result {
+               case .success(let teams):
+                   if let team = teams.first {
+                       self?.loadTeamMembers(for: team)
+                   } else {
+                       self?.errorMessage = "No team found."
+                   }
+               case .failure(let error):
+                   DispatchQueue.main.async {
+                       self?.errorMessage = "Failed to load teams: \(error.localizedDescription)"
+                   }
+               }
+           }
+       }
+    
+    private func loadTeamMembers(for team: Team) {
+        firestoreService.fetchTeamMembers(for: team) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let members):
+                    self?.teamMembers = members
+                case .failure(let error):
+                    self?.errorMessage = "Failed to load team members: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
 
     func addTeamMember(_ teamMember: TeamMember) {
         firestoreService.addTeamMember(teamMember) { [weak self] result in

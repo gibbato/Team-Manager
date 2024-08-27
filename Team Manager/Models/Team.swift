@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Team: Identifiable, Codable {
+struct Team: Codable, Identifiable {
     var id: String = UUID().uuidString
     var name: String
-    var managers: [String] = [] // Array of User IDs who are managers
-    var players: [String] = [] // Array of User IDs who are players
-    
+    var managerID: String
+    var members: [String] = [] // Array of member IDs
+    var invitationCode: String // Unique invitation code for joining the team
 }

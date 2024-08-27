@@ -27,11 +27,9 @@
 		CBA4C1612C7726E80033BA20 /* TeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1602C7726E80033BA20 /* TeamController.swift */; };
 		CBA4C1632C7727220033BA20 /* TeamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1622C7727220033BA20 /* TeamListView.swift */; };
 		CBA4C1662C77D31F0033BA20 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1652C77D31F0033BA20 /* Team.swift */; };
-		CBA4C1722C77E3920033BA20 /* playerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1712C77E3920033BA20 /* playerTests.swift */; };
 		CBBE7F3F2C77E8060099A627 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F3E2C77E8060099A627 /* PlayerView.swift */; };
 		CBBE7F412C77F2210099A627 /* AddPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F402C77F2210099A627 /* AddPlayerView.swift */; };
 		CBBE7F432C7821570099A627 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CBBE7F422C7821570099A627 /* FirebaseStorage */; };
-		CBBE7F472C7824240099A627 /* AddProfilePicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F462C7824240099A627 /* AddProfilePicView.swift */; };
 		CBBE7F492C78249A0099A627 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F482C78249A0099A627 /* ProfileImageView.swift */; };
 		CBBE7F4B2C7824EE0099A627 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F4A2C7824EE0099A627 /* ImagePicker.swift */; };
 		CBBE7F4E2C7826210099A627 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F4D2C7826210099A627 /* ImageUtilities.swift */; };
@@ -39,6 +37,11 @@
 		CBBE7F542C7827EA0099A627 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F532C7827EA0099A627 /* FirebaseStorage.swift */; };
 		CBBE7F582C78286D0099A627 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F572C78286D0099A627 /* ProfileView.swift */; };
 		CBBE7F5A2C7870BA0099A627 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F592C7870BA0099A627 /* BottomNavigationView.swift */; };
+		CBBE7F682C7D22360099A627 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F672C7D22360099A627 /* SignUpView.swift */; };
+		CBBE7F6A2C7D28D40099A627 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F692C7D28D40099A627 /* EditProfileView.swift */; };
+		CBBE7F702C7D59300099A627 /* TeamSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */; };
+		CBBE7F722C7D5AC00099A627 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */; };
+		CBBE7F742C7D5B750099A627 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F732C7D5B750099A627 /* ScheduleViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,10 +74,8 @@
 		CBA4C1622C7727220033BA20 /* TeamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamListView.swift; sourceTree = "<group>"; };
 		CBA4C1652C77D31F0033BA20 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		CBA4C16F2C77E3920033BA20 /* playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = playerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CBA4C1712C77E3920033BA20 /* playerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerTests.swift; sourceTree = "<group>"; };
 		CBBE7F3E2C77E8060099A627 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		CBBE7F402C77F2210099A627 /* AddPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerView.swift; sourceTree = "<group>"; };
-		CBBE7F462C7824240099A627 /* AddProfilePicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePicView.swift; sourceTree = "<group>"; };
 		CBBE7F482C78249A0099A627 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CBBE7F4A2C7824EE0099A627 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CBBE7F4D2C7826210099A627 /* ImageUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilities.swift; sourceTree = "<group>"; };
@@ -82,6 +83,11 @@
 		CBBE7F532C7827EA0099A627 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		CBBE7F572C78286D0099A627 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CBBE7F592C7870BA0099A627 /* BottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
+		CBBE7F672C7D22360099A627 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		CBBE7F692C7D28D40099A627 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSectionView.swift; sourceTree = "<group>"; };
+		CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		CBBE7F732C7D5B750099A627 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,7 @@
 		CBA4C1352C76A3C70033BA20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBBE7F6B2C7D49F50099A627 /* Profile */,
 				CBBE7F3D2C77E7EA0099A627 /* Roster */,
 				CBA4C1392C76A3F20033BA20 /* Authentication */,
 				CBA4C1382C76A3EB0033BA20 /* Dashboard */,
@@ -167,6 +174,7 @@
 				CBA4C1412C76A4500033BA20 /* AuthController.swift */,
 				CBA4C1602C7726E80033BA20 /* TeamController.swift */,
 				CBBE7F502C7827250099A627 /* ProfileController.swift */,
+				CBBE7F732C7D5B750099A627 /* ScheduleViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -187,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				CBA4C1452C76A4C60033BA20 /* DashboardView.swift */,
+				CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -195,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				CBA4C13A2C76A3FF0033BA20 /* AuthView.swift */,
+				CBBE7F672C7D22360099A627 /* SignUpView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -211,7 +221,6 @@
 		CBA4C1702C77E3920033BA20 /* playerTests */ = {
 			isa = PBXGroup;
 			children = (
-				CBA4C1712C77E3920033BA20 /* playerTests.swift */,
 			);
 			path = playerTests;
 			sourceTree = "<group>";
@@ -222,10 +231,7 @@
 				CBA4C1622C7727220033BA20 /* TeamListView.swift */,
 				CBBE7F3E2C77E8060099A627 /* PlayerView.swift */,
 				CBBE7F402C77F2210099A627 /* AddPlayerView.swift */,
-				CBBE7F462C7824240099A627 /* AddProfilePicView.swift */,
-				CBBE7F482C78249A0099A627 /* ProfileImageView.swift */,
-				CBBE7F4A2C7824EE0099A627 /* ImagePicker.swift */,
-				CBBE7F572C78286D0099A627 /* ProfileView.swift */,
+				CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -236,6 +242,17 @@
 				CBBE7F4D2C7826210099A627 /* ImageUtilities.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CBBE7F6B2C7D49F50099A627 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CBBE7F572C78286D0099A627 /* ProfileView.swift */,
+				CBBE7F692C7D28D40099A627 /* EditProfileView.swift */,
+				CBBE7F4A2C7824EE0099A627 /* ImagePicker.swift */,
+				CBBE7F482C78249A0099A627 /* ProfileImageView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +368,7 @@
 				CBA4C1562C77219A0033BA20 /* Event.swift in Sources */,
 				CBA4C1632C7727220033BA20 /* TeamListView.swift in Sources */,
 				CBBE7F4E2C7826210099A627 /* ImageUtilities.swift in Sources */,
+				CBBE7F742C7D5B750099A627 /* ScheduleViewModel.swift in Sources */,
 				CBA4C1662C77D31F0033BA20 /* Team.swift in Sources */,
 				CBBE7F3F2C77E8060099A627 /* PlayerView.swift in Sources */,
 				CBBE7F5A2C7870BA0099A627 /* BottomNavigationView.swift in Sources */,
@@ -359,11 +377,13 @@
 				CBA4C15A2C7721E80033BA20 /* Todo.swift in Sources */,
 				CBA4C1462C76A4C70033BA20 /* DashboardView.swift in Sources */,
 				CBBE7F4B2C7824EE0099A627 /* ImagePicker.swift in Sources */,
-				CBBE7F472C7824240099A627 /* AddProfilePicView.swift in Sources */,
 				CBA4C1582C7721C30033BA20 /* Message.swift in Sources */,
 				CBA4C1422C76A4500033BA20 /* AuthController.swift in Sources */,
+				CBBE7F702C7D59300099A627 /* TeamSectionView.swift in Sources */,
+				CBBE7F722C7D5AC00099A627 /* ScheduleView.swift in Sources */,
 				CBA4C1282C76A3360033BA20 /* Team_ManagerApp.swift in Sources */,
 				CBA4C15F2C7725230033BA20 /* FirestoreService.swift in Sources */,
+				CBBE7F682C7D22360099A627 /* SignUpView.swift in Sources */,
 				CBBE7F512C7827250099A627 /* ProfileController.swift in Sources */,
 				CBA4C1542C77214C0033BA20 /* TeamMember.swift in Sources */,
 				CBBE7F582C78286D0099A627 /* ProfileView.swift in Sources */,
@@ -371,6 +391,7 @@
 				CBA4C1442C76A49E0033BA20 /* AppDelegate.swift in Sources */,
 				CBA4C1612C7726E80033BA20 /* TeamController.swift in Sources */,
 				CBA4C13B2C76A3FF0033BA20 /* AuthView.swift in Sources */,
+				CBBE7F6A2C7D28D40099A627 /* EditProfileView.swift in Sources */,
 				CBBE7F412C77F2210099A627 /* AddPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +400,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBA4C1722C77E3920033BA20 /* playerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

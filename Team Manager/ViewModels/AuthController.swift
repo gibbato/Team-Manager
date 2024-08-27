@@ -54,16 +54,23 @@ class AuthController: ObservableObject {
     }
 
     private func createTeamMemberIfNeeded(for user: User) {
-        let teamMemberRef = firestoreService.fetchTeamMember(byUID: user.uid) { result in
+        firestoreService.fetchTeamMember(byUID: user.uid) { result in
             switch result {
             case .success(let teamMember):
                 if teamMember == nil {
-                    // If no TeamMember exists, create one
+                    // If no TeamMember exists, create one with default or provided values
                     let newTeamMember = TeamMember(
                         id: user.uid,
                         name: user.email ?? "No Name",
                         email: user.email ?? "No Email",
-                        role: "Member" // Default role
+                        role: "Member", // Default role
+                        isManager: false, // Default manager status
+                        isAvailable: true, // Default availability status
+                        primaryPosition: "Unknown", // Default primary position
+                        secondaryPosition: nil, // Optional secondary position
+                        jerseyNumber: 0, // Default jersey number
+                        throwingHand: "Unknown", // Default throwing hand
+                        battingStance: "Unknown" // Default batting stance
                     )
                     self.firestoreService.addTeamMember(newTeamMember) { result in
                         switch result {

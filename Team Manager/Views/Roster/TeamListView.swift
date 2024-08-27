@@ -37,14 +37,14 @@ struct TeamListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add Player") {
                         showingAddPlayerSheet = true
-               
                     }
                 }
-                
             }
         }
         .onAppear {
-            viewModel.loadTeamMembers()
+            if let userID = authController.userId {
+                viewModel.loadTeam(for: userID)
+            }
         }
         .alert(isPresented: Binding<Bool>(
             get: { viewModel.errorMessage != nil },
@@ -54,8 +54,7 @@ struct TeamListView: View {
         }
     }
 }
-
-
+    
 
 struct PlayerCardView: View {
     let member: TeamMember
@@ -66,14 +65,16 @@ struct PlayerCardView: View {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100)
+                        .scaledToFill()  // Fill the area while maintaining aspect ratio
+                        .frame(height: 90)  // 90% of the card height
+                        .clipped()  // Clip the image to the frame
                 } placeholder: {
                     ProgressView()
+                        .frame(height: 90)
                 }
             } else {
                 Color.gray
-                    .frame(width: 100, height: 100)
+                    .frame(height: 90)  // 90% of the card height
             }
             
             VStack {
@@ -84,11 +85,12 @@ struct PlayerCardView: View {
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
             }
-            .padding(.vertical)
+            .padding(.vertical, 5)
             .frame(maxWidth: .infinity)
             .padding()
             .background(Color(.systemGray6))
         }
+        .frame(width: 150, height: 170)  // Ensure all cards are the same size
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
