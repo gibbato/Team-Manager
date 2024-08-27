@@ -165,6 +165,8 @@ class FirestoreService {
             completion(.success(teamMembers))
         }
     }
+    
+    
 
     // Delete a TeamMember document
     func deleteTeamMember(_ teamMember: TeamMember, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -194,23 +196,22 @@ class FirestoreService {
 
     // Fetch a TeamMember document by UID
     func fetchTeamMember(byUID uid: String, completion: @escaping (Result<TeamMember?, Error>) -> Void) {
-        let teamMemberRef = db.collection("teamMembers").document(uid)
-        
-        teamMemberRef.getDocument { document, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let document = document, document.exists {
-                let teamMember = try? document.data(as: TeamMember.self)
-                completion(.success(teamMember))
-            } else {
-                completion(.success(nil))
-            }
-        }
-    }
-
+           let teamMemberRef = db.collection("teamMembers").document(uid)
+           
+           teamMemberRef.getDocument { document, error in
+               if let error = error {
+                   completion(.failure(error))
+                   return
+               }
+               
+               if let document = document, document.exists {
+                   let teamMember = try? document.data(as: TeamMember.self)
+                   completion(.success(teamMember))
+               } else {
+                   completion(.success(nil))
+               }
+           }
+       }
     // Update a TeamMember document (for updating name, email, etc.)
     // Update only the fields that have changed
     func updateTeamMember(_ teamMemberID: String, with data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {

@@ -18,7 +18,7 @@ struct TeamListView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(viewModel.teamMembers) { member in
                             NavigationLink {
-                                PlayerView(memberInfo: member)
+                                PlayerView(teamMember: member)
                             } label: {
                                 PlayerCardView(member: member)
                             }
@@ -61,12 +61,12 @@ struct TeamListView: View {
 }
 
 struct PlayerCardView: View {
-    let member: TeamMemberInfo
+    let member: TeamMember
     
     var body: some View {
         VStack {
-            // Assuming ID corresponds to a URL for profile picture
-            if let url = URL(string: member.id) {
+            // Profile Picture
+            if let url = member.profilePictureURL {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
@@ -83,10 +83,10 @@ struct PlayerCardView: View {
             }
             
             VStack {
-                Text(member.id) // Assuming the ID corresponds to a name or you can add a name property to TeamMemberInfo
+                Text(member.name)
                     .font(.headline)
                     .foregroundColor(.white)
-                Text(member.role)
+                Text(member.role) // Assuming the role is stored in TeamMember
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -103,7 +103,6 @@ struct PlayerCardView: View {
         )
     }
 }
-
 #Preview {
     TeamListView()
         .environmentObject(AuthController())
