@@ -15,7 +15,7 @@ struct ScheduleView: View {
         ZStack {
             NavigationStack {
                 VStack {
-                    // Main content of the ScheduleView goes here
+                    // Placeholder for the main content of the ScheduleView
                     Text("Schedule content will go here.")
                         .padding()
                     
@@ -89,7 +89,7 @@ struct DropdownMenu: View {
                         .padding(.horizontal)
                 }
                 Button(action: {
-                    // Action to join another team
+                    // Action to join another team as a player
                     viewModel.showDropdown = false
                 }) {
                     Text("Join Another Team as Player")

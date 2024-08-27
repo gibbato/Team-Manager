@@ -63,9 +63,7 @@ class ProfileViewModel: ObservableObject {
         return teamMember?.battingStance ?? "Right"
     }
     
-    func isManager() -> Bool {
-        return teamMember?.isManager ?? false
-    }
+  
     
     // Computed properties for shortened values
        var shortBattingStance: String {

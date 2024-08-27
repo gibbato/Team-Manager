@@ -12,7 +12,6 @@ struct TeamMember: Codable, Identifiable {
     var name: String
     var email: String
     var role: String = "Player"
-    var isManager: Bool = false
     var isAvailable: Bool = true
     var profilePictureURL: URL? = nil
     

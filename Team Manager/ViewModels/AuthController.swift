@@ -64,7 +64,6 @@ class AuthController: ObservableObject {
                         name: user.email ?? "No Name",
                         email: user.email ?? "No Email",
                         role: "Member", // Default role
-                        isManager: false, // Default manager status
                         isAvailable: true, // Default availability status
                         primaryPosition: "Unknown", // Default primary position
                         secondaryPosition: nil, // Optional secondary position

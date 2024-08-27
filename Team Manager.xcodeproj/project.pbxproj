@@ -42,6 +42,8 @@
 		CBBE7F702C7D59300099A627 /* TeamSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */; };
 		CBBE7F722C7D5AC00099A627 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */; };
 		CBBE7F742C7D5B750099A627 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F732C7D5B750099A627 /* ScheduleViewModel.swift */; };
+		CBBE7F762C7DA9940099A627 /* CreateOrJoinTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F752C7DA9940099A627 /* CreateOrJoinTeamView.swift */; };
+		CBBE7F782C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F772C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,8 @@
 		CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSectionView.swift; sourceTree = "<group>"; };
 		CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		CBBE7F732C7D5B750099A627 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		CBBE7F752C7DA9940099A627 /* CreateOrJoinTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrJoinTeamView.swift; sourceTree = "<group>"; };
+		CBBE7F772C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrJoinTeamViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,7 @@
 		CBA4C1362C76A3CC0033BA20 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CBBE7F772C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift */,
 				CBA4C1412C76A4500033BA20 /* AuthController.swift */,
 				CBA4C1602C7726E80033BA20 /* TeamController.swift */,
 				CBBE7F502C7827250099A627 /* ProfileController.swift */,
@@ -232,6 +237,7 @@
 				CBBE7F3E2C77E8060099A627 /* PlayerView.swift */,
 				CBBE7F402C77F2210099A627 /* AddPlayerView.swift */,
 				CBBE7F6F2C7D59300099A627 /* TeamSectionView.swift */,
+				CBBE7F752C7DA9940099A627 /* CreateOrJoinTeamView.swift */,
 			);
 			path = Roster;
 			sourceTree = "<group>";
@@ -373,7 +379,9 @@
 				CBBE7F3F2C77E8060099A627 /* PlayerView.swift in Sources */,
 				CBBE7F5A2C7870BA0099A627 /* BottomNavigationView.swift in Sources */,
 				CBA4C12A2C76A3360033BA20 /* ContentView.swift in Sources */,
+				CBBE7F782C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift in Sources */,
 				CBBE7F542C7827EA0099A627 /* FirebaseStorage.swift in Sources */,
+				CBBE7F762C7DA9940099A627 /* CreateOrJoinTeamView.swift in Sources */,
 				CBA4C15A2C7721E80033BA20 /* Todo.swift in Sources */,
 				CBA4C1462C76A4C70033BA20 /* DashboardView.swift in Sources */,
 				CBBE7F4B2C7824EE0099A627 /* ImagePicker.swift in Sources */,

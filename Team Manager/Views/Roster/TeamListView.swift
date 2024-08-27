@@ -11,25 +11,46 @@ struct TeamListView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.teamMembers) { member in
-                        NavigationLink {
-                            PlayerView(teamMember: member)
-                        } label: {
-                            PlayerCardView(member: member)
+            VStack {
+                // Dropdown to switch between teams
+                if let selectedTeam = viewModel.selectedTeam {
+                    Menu {
+                        ForEach(viewModel.teams) { team in
+                            Button(team.name) {
+                                viewModel.selectedTeam = team
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(selectedTeam.name)
+                            Image(systemName: "chevron.down")
                         }
                     }
+                    .padding()
                 }
-                .padding([.horizontal, .bottom])
+
+                // Team Roster
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(viewModel.teamMembers) { member in
+                            NavigationLink {
+                                PlayerView(memberInfo: member)
+                            } label: {
+                                PlayerCardView(member: member)
+                            }
+                        }
+                    }
+                    .padding([.horizontal, .bottom])
+                }
             }
             .navigationTitle("Roster")
             .background(Color.whiteSmoke)
             .preferredColorScheme(.dark)
             .sheet(isPresented: $showingAddPlayerSheet) {
                 AddPlayerView { newPlayer in
-                    if let newPlayer = newPlayer {
-                        viewModel.addTeamMember(newPlayer)
+                    if let newPlayer = newPlayer, let teamID = viewModel.selectedTeam?.id {
+                        let teamMemberInfo = TeamMemberInfo(id: newPlayer.id, role: "player")
+                        viewModel.addTeamMember(teamMemberInfo, to: teamID)
                     }
                 }
             }
@@ -43,7 +64,7 @@ struct TeamListView: View {
         }
         .onAppear {
             if let userID = authController.userId {
-                viewModel.loadTeam(for: userID)
+                viewModel.loadTeams(for: userID)
             }
         }
         .alert(isPresented: Binding<Bool>(
@@ -54,31 +75,30 @@ struct TeamListView: View {
         }
     }
 }
-    
 
 struct PlayerCardView: View {
-    let member: TeamMember
+    let member: TeamMemberInfo
     
     var body: some View {
         VStack {
-            if let url = member.profilePictureURL {
+            if let url = URL(string: member.id) { // Assuming ID corresponds to a URL
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
-                        .scaledToFill()  // Fill the area while maintaining aspect ratio
-                        .frame(height: 90)  // 90% of the card height
-                        .clipped()  // Clip the image to the frame
+                        .scaledToFill()
+                        .frame(height: 90)
+                        .clipped()
                 } placeholder: {
                     ProgressView()
                         .frame(height: 90)
                 }
             } else {
                 Color.gray
-                    .frame(height: 90)  // 90% of the card height
+                    .frame(height: 90)
             }
             
             VStack {
-                Text(member.name)
+                Text(member.id) // Assuming the ID corresponds to a name or you can add a name property to TeamMemberInfo
                     .font(.headline)
                     .foregroundColor(.white)
                 Text(member.role)
@@ -90,11 +110,11 @@ struct PlayerCardView: View {
             .padding()
             .background(Color(.systemGray6))
         }
-        .frame(width: 150, height: 170)  // Ensure all cards are the same size
+        .frame(width: 150, height: 170)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(member.isAvailable ? Color.emeraldGreen : Color.alizarinRed)
+                .stroke(Color.emeraldGreen)
         )
     }
 }

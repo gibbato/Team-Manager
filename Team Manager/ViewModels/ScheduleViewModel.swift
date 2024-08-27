@@ -5,18 +5,18 @@
 //  Created by Michael Gibson on 8/26/24.
 //
 
-import Foundation
+import Combine
+import SwiftUI
 
 class ScheduleViewModel: ObservableObject {
-    @Published var currentTeam: Team?
     @Published var userTeams: [Team] = []
-    @Published var isManager: Bool = false
-    @Published var showDropdown: Bool = false
-
-    private let firestoreService = FirestoreService()
+    @Published var currentTeam: Team?
+    @Published var showDropdown = false
+    @Published var errorMessage: String?
     
-
-
+    private let firestoreService = FirestoreService()
+ 
+    // Load teams for the current user
     func loadTeams(for userID: String) {
         firestoreService.fetchTeams(for: userID) { [weak self] result in
             DispatchQueue.main.async {
@@ -24,11 +24,16 @@ class ScheduleViewModel: ObservableObject {
                 case .success(let teams):
                     self?.userTeams = teams
                     self?.currentTeam = teams.first
-                    self?.isManager = teams.contains(where: { $0.managerID == userID })
                 case .failure(let error):
-                    print("Failed to load teams: \(error.localizedDescription)")
+                    self?.errorMessage = "Failed to load teams: \(error.localizedDescription)"
                 }
             }
         }
+    }
+
+    // Check if the current user is a manager of the current team
+    var isManager: Bool {
+        guard let currentTeam = currentTeam else { return false }
+        return currentTeam.managerID == AuthController().userId
     }
 }
