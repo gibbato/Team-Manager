@@ -10,6 +10,9 @@ import SwiftUI
 struct ScheduleView: View {
     @StateObject private var viewModel = ScheduleViewModel()
     @EnvironmentObject private var authController: AuthController
+    
+    @State private var showingTeamSheet = false
+    @State private var isCreatingTeam = false
 
     var body: some View {
         ZStack {
@@ -48,7 +51,7 @@ struct ScheduleView: View {
                     .ignoresSafeArea()
                     .opacity(0.95)  // Ensure it is not see-through
                     .overlay(
-                        DropdownMenu(viewModel: viewModel)
+                        DropdownMenu(viewModel: viewModel, showingTeamSheet: $showingTeamSheet, isCreatingTeam: $isCreatingTeam)
                             .transition(.move(edge: .top).combined(with: .opacity))
                     )
             }
@@ -58,11 +61,28 @@ struct ScheduleView: View {
                 viewModel.loadTeams(for: userID)
             }
         }
+        .sheet(isPresented: $showingTeamSheet) {
+            if isCreatingTeam {
+                CreateTeamView { teamName in
+                    if let userID = authController.userId {
+                        viewModel.createTeam(withName: teamName, managerID: userID)
+                    }
+                }
+            } else {
+                JoinTeamView { invitationCode in
+                    if let userID = authController.userId {
+                        viewModel.joinTeam(withCode: invitationCode, userID: userID)
+                    }
+                }
+            }
+        }
     }
 }
 
 struct DropdownMenu: View {
     @ObservedObject var viewModel: ScheduleViewModel
+    @Binding var showingTeamSheet: Bool
+    @Binding var isCreatingTeam: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -79,32 +99,23 @@ struct DropdownMenu: View {
                 }
             }
             Divider()
-            if viewModel.isManager {
-                Button(action: {
-                    // Action to create a new team
-                    viewModel.showDropdown = false
-                }) {
-                    Text("Create New Team")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal)
-                }
-                Button(action: {
-                    // Action to join another team as a player
-                    viewModel.showDropdown = false
-                }) {
-                    Text("Join Another Team as Player")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal)
-                }
-            } else {
-                Button(action: {
-                    // Action to join another team
-                    viewModel.showDropdown = false
-                }) {
-                    Text("Join Another Team")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal)
-                }
+            Button(action: {
+                isCreatingTeam = true
+                showingTeamSheet = true
+                viewModel.showDropdown = false
+            }) {
+                Text("Create New Team")
+                    .padding(.vertical, 5)
+                    .padding(.horizontal)
+            }
+            Button(action: {
+                isCreatingTeam = false
+                showingTeamSheet = true
+                viewModel.showDropdown = false
+            }) {
+                Text("Join a Team")
+                    .padding(.vertical, 5)
+                    .padding(.horizontal)
             }
         }
         .padding()

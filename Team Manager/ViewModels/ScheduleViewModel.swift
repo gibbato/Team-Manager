@@ -15,7 +15,7 @@ class ScheduleViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private let firestoreService = FirestoreService()
- 
+
     // Load teams for the current user
     func loadTeams(for userID: String) {
         firestoreService.fetchTeams(for: userID) { [weak self] result in
@@ -26,6 +26,34 @@ class ScheduleViewModel: ObservableObject {
                     self?.currentTeam = teams.first
                 case .failure(let error):
                     self?.errorMessage = "Failed to load teams: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
+
+    // Create a new team
+    func createTeam(withName teamName: String, managerID: String) {
+        firestoreService.createTeam(name: teamName, managerID: managerID) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.loadTeams(for: managerID)
+                case .failure(let error):
+                    self?.errorMessage = "Failed to create team: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
+
+    // Join a team using the invitation code
+    func joinTeam(withCode invitationCode: String, userID: String) {
+        firestoreService.joinTeam(byCode: invitationCode, memberID: userID, role: "player") { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.loadTeams(for: userID)
+                case .failure(let error):
+                    self?.errorMessage = "Failed to join team: \(error.localizedDescription)"
                 }
             }
         }
