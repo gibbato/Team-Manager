@@ -19,7 +19,6 @@
 		CBA4C1462C76A4C70033BA20 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1452C76A4C60033BA20 /* DashboardView.swift */; };
 		CBA4C14A2C76A5C30033BA20 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBA4C1492C76A5C30033BA20 /* GoogleService-Info.plist */; };
 		CBA4C1542C77214C0033BA20 /* TeamMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1532C77214C0033BA20 /* TeamMember.swift */; };
-		CBA4C1562C77219A0033BA20 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1552C77219A0033BA20 /* Event.swift */; };
 		CBA4C1582C7721C30033BA20 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1572C7721C30033BA20 /* Message.swift */; };
 		CBA4C15A2C7721E80033BA20 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA4C1592C7721E80033BA20 /* Todo.swift */; };
 		CBA4C15C2C7723DF0033BA20 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CBA4C15B2C7723DF0033BA20 /* FirebaseFirestore */; };
@@ -47,6 +46,11 @@
 		CBBE7F7A2C7DB3520099A627 /* CreateTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F792C7DB3520099A627 /* CreateTeamView.swift */; };
 		CBBE7F7C2C7DB3640099A627 /* JoinTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F7B2C7DB3640099A627 /* JoinTeamView.swift */; };
 		CBBE7F7E2C7DB54D0099A627 /* SelectedTeamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F7D2C7DB54D0099A627 /* SelectedTeamManager.swift */; };
+		CBBE7F842C7F01300099A627 /* ScheduleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F832C7F01300099A627 /* ScheduleItem.swift */; };
+		CBBE7F862C7F01A50099A627 /* AddScheduleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F852C7F01A50099A627 /* AddScheduleItemView.swift */; };
+		CBBE7F8A2C7FCD130099A627 /* TeamDropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F892C7FCD130099A627 /* TeamDropdownMenuView.swift */; };
+		CBBE7F8D2C7FD2C40099A627 /* ScheduleItemCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */; };
+		CBBE7F8F2C7FDC3B0099A627 /* ScheduleItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +75,6 @@
 		CBA4C1452C76A4C60033BA20 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CBA4C1492C76A5C30033BA20 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CBA4C1532C77214C0033BA20 /* TeamMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMember.swift; sourceTree = "<group>"; };
-		CBA4C1552C77219A0033BA20 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		CBA4C1572C7721C30033BA20 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CBA4C1592C7721E80033BA20 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		CBA4C15E2C7725230033BA20 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -98,6 +101,11 @@
 		CBBE7F792C7DB3520099A627 /* CreateTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamView.swift; sourceTree = "<group>"; };
 		CBBE7F7B2C7DB3640099A627 /* JoinTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamView.swift; sourceTree = "<group>"; };
 		CBBE7F7D2C7DB54D0099A627 /* SelectedTeamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTeamManager.swift; sourceTree = "<group>"; };
+		CBBE7F832C7F01300099A627 /* ScheduleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItem.swift; sourceTree = "<group>"; };
+		CBBE7F852C7F01A50099A627 /* AddScheduleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleItemView.swift; sourceTree = "<group>"; };
+		CBBE7F892C7FCD130099A627 /* TeamDropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDropdownMenuView.swift; sourceTree = "<group>"; };
+		CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemCardView.swift; sourceTree = "<group>"; };
+		CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +177,7 @@
 		CBA4C1352C76A3C70033BA20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBBE7F8B2C7FD0F90099A627 /* Schedule */,
 				CBBE7F6B2C7D49F50099A627 /* Profile */,
 				CBBE7F3D2C77E7EA0099A627 /* Roster */,
 				CBA4C1392C76A3F20033BA20 /* Authentication */,
@@ -194,10 +203,10 @@
 			isa = PBXGroup;
 			children = (
 				CBA4C1532C77214C0033BA20 /* TeamMember.swift */,
-				CBA4C1552C77219A0033BA20 /* Event.swift */,
 				CBA4C1572C7721C30033BA20 /* Message.swift */,
 				CBA4C1592C7721E80033BA20 /* Todo.swift */,
 				CBA4C1652C77D31F0033BA20 /* Team.swift */,
+				CBBE7F832C7F01300099A627 /* ScheduleItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,9 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				CBA4C1452C76A4C60033BA20 /* DashboardView.swift */,
-				CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */,
 				CBBE7F792C7DB3520099A627 /* CreateTeamView.swift */,
 				CBBE7F7B2C7DB3640099A627 /* JoinTeamView.swift */,
+				CBBE7F892C7FCD130099A627 /* TeamDropdownMenuView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -268,6 +277,17 @@
 				CBBE7F482C78249A0099A627 /* ProfileImageView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		CBBE7F8B2C7FD0F90099A627 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				CBBE7F712C7D5AC00099A627 /* ScheduleView.swift */,
+				CBBE7F852C7F01A50099A627 /* AddScheduleItemView.swift */,
+				CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */,
+				CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,7 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBBE7F7E2C7DB54D0099A627 /* SelectedTeamManager.swift in Sources */,
-				CBA4C1562C77219A0033BA20 /* Event.swift in Sources */,
+				CBBE7F8F2C7FDC3B0099A627 /* ScheduleItemDetailView.swift in Sources */,
 				CBA4C1632C7727220033BA20 /* TeamListView.swift in Sources */,
 				CBBE7F4E2C7826210099A627 /* ImageUtilities.swift in Sources */,
 				CBBE7F742C7D5B750099A627 /* ScheduleViewModel.swift in Sources */,
@@ -403,14 +423,18 @@
 				CBA4C15F2C7725230033BA20 /* FirestoreService.swift in Sources */,
 				CBBE7F682C7D22360099A627 /* SignUpView.swift in Sources */,
 				CBBE7F512C7827250099A627 /* ProfileController.swift in Sources */,
+				CBBE7F862C7F01A50099A627 /* AddScheduleItemView.swift in Sources */,
+				CBBE7F8A2C7FCD130099A627 /* TeamDropdownMenuView.swift in Sources */,
 				CBA4C1542C77214C0033BA20 /* TeamMember.swift in Sources */,
 				CBBE7F582C78286D0099A627 /* ProfileView.swift in Sources */,
+				CBBE7F8D2C7FD2C40099A627 /* ScheduleItemCardView.swift in Sources */,
 				CBBE7F7A2C7DB3520099A627 /* CreateTeamView.swift in Sources */,
 				CBBE7F492C78249A0099A627 /* ProfileImageView.swift in Sources */,
 				CBA4C1442C76A49E0033BA20 /* AppDelegate.swift in Sources */,
 				CBA4C1612C7726E80033BA20 /* TeamController.swift in Sources */,
 				CBA4C13B2C76A3FF0033BA20 /* AuthView.swift in Sources */,
 				CBBE7F6A2C7D28D40099A627 /* EditProfileView.swift in Sources */,
+				CBBE7F842C7F01300099A627 /* ScheduleItem.swift in Sources */,
 				CBBE7F412C77F2210099A627 /* AddPlayerView.swift in Sources */,
 				CBBE7F7C2C7DB3640099A627 /* JoinTeamView.swift in Sources */,
 			);

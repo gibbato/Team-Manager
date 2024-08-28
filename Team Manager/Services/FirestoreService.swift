@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 class FirestoreService {
     private let db = Firestore.firestore()
-
+    
     // Function to generate a unique invitation code
     private func generateUniqueInvitationCode(completion: @escaping (Result<String, Error>) -> Void) {
         let code = UUID().uuidString.prefix(8).uppercased() // Generate a random 8-character code
@@ -26,31 +26,31 @@ class FirestoreService {
             }
         }
     }
-
+    
     // Function to create a new team
     func createTeam(name: String, managerID: String, completion: @escaping (Result<Void, Error>) -> Void) {
-          generateUniqueInvitationCode { [weak self] codeResult in
-              switch codeResult {
-              case .success(let code):
-                  let team = Team(
-                      name: name,
-                      managerID: managerID,
-                      members: [TeamMemberInfo(id: managerID, role: "manager")],
-                      memberIDs: [managerID], // Add managerID to memberIDs array
-                      invitationCode: code
-                  )
-                  do {
-                      try self?.db.collection("teams").document(team.id).setData(from: team)
-                      completion(.success(()))
-                  } catch let error {
-                      completion(.failure(error))
-                  }
-              case .failure(let error):
-                  completion(.failure(error))
-              }
-          }
-      }
-
+        generateUniqueInvitationCode { [weak self] codeResult in
+            switch codeResult {
+            case .success(let code):
+                let team = Team(
+                    name: name,
+                    managerID: managerID,
+                    members: [TeamMemberInfo(id: managerID, role: "manager")],
+                    memberIDs: [managerID], // Add managerID to memberIDs array
+                    invitationCode: code
+                )
+                do {
+                    try self?.db.collection("teams").document(team.id).setData(from: team)
+                    completion(.success(()))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     // Function to join a team using an invitation code
     func joinTeam(byCode code: String, memberID: String, role: String, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("teams").whereField("invitationCode", isEqualTo: code).getDocuments { snapshot, error in
@@ -65,7 +65,7 @@ class FirestoreService {
             }
         }
     }
-
+    
     // Function to add a member to a team
     func addMemberToTeam(teamID: String, memberInfo: TeamMemberInfo, completion: @escaping (Result<Void, Error>) -> Void) {
         let teamRef = db.collection("teams").document(teamID)
@@ -80,45 +80,45 @@ class FirestoreService {
             }
         }
     }
-
+    
     // Function to fetch teams for a user by checking if the user ID is in the members array
     func fetchTeams(for userID: String, completion: @escaping (Result<[Team], Error>) -> Void) {
-           db.collection("teams").whereField("memberIDs", arrayContains: userID).getDocuments { snapshot, error in
-               if let error = error {
-                   completion(.failure(error))
-                   return
-               }
-
-               guard let documents = snapshot?.documents else {
-                   completion(.success([])) // No teams found
-                   return
-               }
-
-               let teams = documents.compactMap { document -> Team? in
-                   return try? document.data(as: Team.self)
-               }
-               print(teams)
-               completion(.success(teams))
-           }
-       }
+        db.collection("teams").whereField("memberIDs", arrayContains: userID).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(.success([])) // No teams found
+                return
+            }
+            
+            let teams = documents.compactMap { document -> Team? in
+                return try? document.data(as: Team.self)
+            }
+            print(teams)
+            completion(.success(teams))
+        }
+    }
     
     // Fetch the team by ID
-       func fetchTeam(byID teamID: String, completion: @escaping (Result<Team, Error>) -> Void) {
-           db.collection("teams").document(teamID).getDocument { document, error in
-               if let error = error {
-                   completion(.failure(error))
-                   return
-               }
-
-               guard let document = document, document.exists, let team = try? document.data(as: Team.self) else {
-                   completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
-                   return
-               }
-
-               completion(.success(team))
-           }
-       }
-
+    func fetchTeam(byID teamID: String, completion: @escaping (Result<Team, Error>) -> Void) {
+        db.collection("teams").document(teamID).getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let document = document, document.exists, let team = try? document.data(as: Team.self) else {
+                completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
+                return
+            }
+            
+            completion(.success(team))
+        }
+    }
+    
     // Function to fetch team members for a specific team
     func fetchTeamMembers(for teamID: String, completion: @escaping (Result<[TeamMemberInfo], Error>) -> Void) {
         db.collection("teams").document(teamID).getDocument { document, error in
@@ -126,16 +126,16 @@ class FirestoreService {
                 completion(.failure(error))
                 return
             }
-
+            
             guard let document = document, document.exists, let team = try? document.data(as: Team.self) else {
                 completion(.failure(NSError(domain: "No team found", code: 404, userInfo: nil)))
                 return
             }
-
+            
             completion(.success(team.members))
         }
     }
-
+    
     // Add a TeamMember document
     func addTeamMember(_ teamMember: TeamMember, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
@@ -145,7 +145,7 @@ class FirestoreService {
             completion(.failure(error))
         }
     }
-
+    
     // Fetch all TeamMember documents
     func fetchTeamMembers(completion: @escaping (Result<[TeamMember], Error>) -> Void) {
         db.collection("teamMembers").getDocuments { snapshot, error in
@@ -167,7 +167,7 @@ class FirestoreService {
     }
     
     
-
+    
     // Delete a TeamMember document
     func deleteTeamMember(_ teamMember: TeamMember, completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("teamMembers").document(teamMember.id).delete { error in
@@ -178,7 +178,7 @@ class FirestoreService {
             }
         }
     }
-
+    
     // Update the profile image of a TeamMember document
     func updateTeamMemberProfileImage(teamMemberID: String, profileImageURL: URL, completion: @escaping (Result<Void, Error>) -> Void) {
         let teamMemberRef = db.collection("teamMembers").document(teamMemberID)
@@ -193,25 +193,25 @@ class FirestoreService {
             }
         }
     }
-
+    
     // Fetch a TeamMember document by UID
     func fetchTeamMember(byUID uid: String, completion: @escaping (Result<TeamMember?, Error>) -> Void) {
-           let teamMemberRef = db.collection("teamMembers").document(uid)
-           
-           teamMemberRef.getDocument { document, error in
-               if let error = error {
-                   completion(.failure(error))
-                   return
-               }
-               
-               if let document = document, document.exists {
-                   let teamMember = try? document.data(as: TeamMember.self)
-                   completion(.success(teamMember))
-               } else {
-                   completion(.success(nil))
-               }
-           }
-       }
+        let teamMemberRef = db.collection("teamMembers").document(uid)
+        
+        teamMemberRef.getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let document = document, document.exists {
+                let teamMember = try? document.data(as: TeamMember.self)
+                completion(.success(teamMember))
+            } else {
+                completion(.success(nil))
+            }
+        }
+    }
     // Update a TeamMember document (for updating name, email, etc.)
     // Update only the fields that have changed
     func updateTeamMember(_ teamMemberID: String, with data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
@@ -223,4 +223,97 @@ class FirestoreService {
             }
         }
     }
+    
+    
+    
+    /*
+     
+     
+     SCHEDULE FUNCTIONS
+     
+     
+     */
+    
+    
+  
+    // Fetch schedule items for a specific team
+    func fetchScheduleItems(for teamID: String, completion: @escaping (Result<[ScheduleItem], Error>) -> Void) {
+        db.collection("scheduleItems").whereField("teamID", isEqualTo: teamID).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching schedule items: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                guard let documents = snapshot?.documents else {
+                    print("No documents found for teamID: \(teamID)")
+                    completion(.success([]))
+                    return
+                }
+                
+                let items = documents.compactMap { document -> ScheduleItem? in
+                    do {
+                        return try document.data(as: ScheduleItem.self)
+                    } catch {
+                        print("Error decoding document: \(error.localizedDescription)")
+                        return nil
+                    }
+                }
+                
+                print("Fetched \(items.count) schedule items for teamID: \(teamID)")
+                completion(.success(items))
+            }
+        }
+    }
+
+       // Create a new schedule item
+       func addScheduleItem(_ item: ScheduleItem, completion: @escaping (Result<Void, Error>) -> Void) {
+           do {
+               try db.collection("scheduleItems").document(item.id).setData(from: item)
+               completion(.success(()))
+           } catch let error {
+               completion(.failure(error))
+           }
+       }
+
+       // Update confirmation for a schedule item
+    func updateAttendanceConfirmation(for scheduleItemID: String, playerID: String, willAttend: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+        let scheduleItemRef = db.collection("scheduleItems").document(scheduleItemID)
+        
+        scheduleItemRef.updateData([
+            "confirmations.\(playerID)": willAttend
+        ]) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+       // Update schedule item
+       func updateScheduleItem(_ scheduleItemID: String, with data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+           db.collection("scheduleItems").document(scheduleItemID).updateData(data) { error in
+               if let error = error {
+                   completion(.failure(error))
+               } else {
+                   completion(.success(()))
+               }
+           }
+       }
+
+       // Fetch specific schedule item by ID
+       func fetchScheduleItem(byID scheduleItemID: String, completion: @escaping (Result<ScheduleItem, Error>) -> Void) {
+           db.collection("scheduleItems").document(scheduleItemID).getDocument { document, error in
+               if let error = error {
+                   completion(.failure(error))
+               } else if let document = document, document.exists {
+                   let scheduleItem = try? document.data(as: ScheduleItem.self)
+                   if let scheduleItem = scheduleItem {
+                       completion(.success(scheduleItem))
+                   } else {
+                       completion(.failure(NSError(domain: "com.example.TeamManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to parse ScheduleItem"])))
+                   }
+               } else {
+                   completion(.failure(NSError(domain: "com.example.TeamManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "No ScheduleItem found with the given ID"])))
+               }
+           }
+       }
 }

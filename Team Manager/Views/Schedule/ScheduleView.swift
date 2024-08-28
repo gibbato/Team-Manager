@@ -11,19 +11,32 @@ struct ScheduleView: View {
     @StateObject private var viewModel = ScheduleViewModel()
     @EnvironmentObject private var authController: AuthController
     @EnvironmentObject private var selectedTeamManager: SelectedTeamManager
-    
     @State private var showingTeamSheet = false
     @State private var isCreatingTeam = false
+    @State private var showingAddItemSheet = false
 
     var body: some View {
         ZStack {
             NavigationStack {
                 VStack {
-                    // Placeholder for the main content of the ScheduleView
-                    Text("Schedule content will go here.")
-                        .padding()
-                    
-                    Spacer()
+                    if let currentTeam = selectedTeamManager.currentTeam {
+                        ScrollView {
+                            VStack(spacing: 10) {
+                                ForEach(viewModel.scheduleItems) { item in
+                                    NavigationLink(destination: ScheduleItemDetailView(scheduleItem: item)) {
+                                        ScheduleItemCardView(item: item)
+                                    }
+                                }
+                            }
+                            .padding(.top)
+                        }
+                        .onAppear {
+                            viewModel.loadScheduleItems(for: currentTeam.id)
+                        }
+                    } else {
+                        Text("No team selected.")
+                            .padding()
+                    }
                 }
                 .navigationTitle(selectedTeamManager.currentTeam?.name ?? "No Team")
                 .toolbar {
@@ -43,22 +56,29 @@ struct ScheduleView: View {
                                 }
                         }
                     }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if isUserManager() {
+                            Button("Add Event") {
+                                showingAddItemSheet = true
+                            }
+                        }
+                    }
                 }
             }
-            
+
             if viewModel.showDropdown {
                 Color.white
                     .ignoresSafeArea()
                     .opacity(0.95)
                     .overlay(
-                        DropdownMenu(viewModel: viewModel, showingTeamSheet: $showingTeamSheet, isCreatingTeam: $isCreatingTeam)
+                        TeamDropdownMenuView(viewModel: viewModel, showingTeamSheet: $showingTeamSheet, isCreatingTeam: $isCreatingTeam)
                             .transition(.move(edge: .top).combined(with: .opacity))
                     )
             }
         }
-        .onAppear {
-            if let userID = authController.userId {
-                viewModel.loadTeams(for: userID)
+        .sheet(isPresented: $showingAddItemSheet) {
+            if let currentTeam = selectedTeamManager.currentTeam {
+                AddScheduleItemView(teamID: currentTeam.id, viewModel: viewModel)
             }
         }
         .sheet(isPresented: $showingTeamSheet) {
@@ -77,54 +97,13 @@ struct ScheduleView: View {
             }
         }
     }
-}
 
-struct DropdownMenu: View {
-    @ObservedObject var viewModel: ScheduleViewModel
-    @EnvironmentObject var selectedTeamManager: SelectedTeamManager
-    @Binding var showingTeamSheet: Bool
-    @Binding var isCreatingTeam: Bool
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            ForEach(viewModel.userTeams) { team in
-                Button(action: {
-                    selectedTeamManager.updateCurrentTeam(team)  // Update the selected team
-                    viewModel.currentTeam = team
-                    viewModel.showDropdown = false
-                }) {
-                    Text(team.name)
-                        .padding(.vertical, 5)
-                        .padding(.horizontal)
-                        .background(selectedTeamManager.currentTeam?.id == team.id ? Color.gray.opacity(0.2) : Color.clear)
-                        .cornerRadius(5)
-                }
-            }
-            Divider()
-            Button(action: {
-                isCreatingTeam = true
-                showingTeamSheet = true
-                viewModel.showDropdown = false
-            }) {
-                Text("Create New Team")
-                    .padding(.vertical, 5)
-                    .padding(.horizontal)
-            }
-            Button(action: {
-                isCreatingTeam = false
-                showingTeamSheet = true
-                viewModel.showDropdown = false
-            }) {
-                Text("Join a Team")
-                    .padding(.vertical, 5)
-                    .padding(.horizontal)
-            }
+    private func isUserManager() -> Bool {
+        guard let userID = authController.userId,
+              let team = selectedTeamManager.currentTeam else {
+            return false
         }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 5)
-        .padding(.horizontal)
+        return team.members.contains(where: { $0.id == userID && $0.role == "manager" })
     }
 }
 
