@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+
 class SelectedTeamManager: ObservableObject {
     @Published var currentTeam: Team? {
         didSet {
@@ -27,7 +28,7 @@ class SelectedTeamManager: ObservableObject {
         UserDefaults.standard.set(team.id, forKey: teamKey)
     }
 
-    private func loadCurrentTeam() {
+    func loadCurrentTeam() {
         if let teamID = UserDefaults.standard.string(forKey: teamKey) {
             firestoreService.fetchTeam(byID: teamID) { [weak self] result in
                 DispatchQueue.main.async {
@@ -41,6 +42,13 @@ class SelectedTeamManager: ObservableObject {
             }
         }
     }
+    
+    //  TODO: clear and re-set current team for when user signs out and back in under a different account
+    
+    func clearCurrentTeam() {
+           UserDefaults.standard.removeObject(forKey: teamKey)
+           currentTeam = nil
+       }
 
     func updateCurrentTeam(_ team: Team) {
         currentTeam = team

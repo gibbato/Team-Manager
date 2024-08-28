@@ -27,7 +27,7 @@ struct AuthView: View {
                 TextField("Email", text: $authController.email)
                     .textCase(.lowercase)
                     .padding()
-                    .background(Color("VeryLightGray"))
+                    .background(Color("SoftGray"))
                     .cornerRadius(10)
                     .foregroundColor(.black)
                     .padding(.bottom, 20)
@@ -35,7 +35,7 @@ struct AuthView: View {
                 SecureField("Password", text: $authController.password)
                     .textCase(.lowercase)
                     .padding()
-                    .background(Color("VeryLightGray"))
+                    .background(Color("SoftGray"))
                     .cornerRadius(10)
                     .foregroundColor(.black)
                     .padding(.bottom, 20)
@@ -45,7 +45,7 @@ struct AuthView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color("EmeraldGreen"))
+                        .background(Color("ForestGreen"))
                         .cornerRadius(10)
                 }
                 .padding(.top, 20)
@@ -71,7 +71,8 @@ struct AuthView: View {
                 .padding(.top, 20)
             }
             .padding()
-            .background(Color("WhiteSmoke"))
+            .background(Color("SoftBeige"))
+            
         }
     }
     
