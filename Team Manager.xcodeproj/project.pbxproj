@@ -51,6 +51,8 @@
 		CBBE7F8A2C7FCD130099A627 /* TeamDropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F892C7FCD130099A627 /* TeamDropdownMenuView.swift */; };
 		CBBE7F8D2C7FD2C40099A627 /* ScheduleItemCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */; };
 		CBBE7F8F2C7FDC3B0099A627 /* ScheduleItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */; };
+		CBBE7F912C7FDF3B0099A627 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F902C7FDF3B0099A627 /* CalendarView.swift */; };
+		CBBE7F932C7FDF520099A627 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,8 @@
 		CBBE7F892C7FCD130099A627 /* TeamDropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDropdownMenuView.swift; sourceTree = "<group>"; };
 		CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemCardView.swift; sourceTree = "<group>"; };
 		CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemDetailView.swift; sourceTree = "<group>"; };
+		CBBE7F902C7FDF3B0099A627 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +290,8 @@
 				CBBE7F852C7F01A50099A627 /* AddScheduleItemView.swift */,
 				CBBE7F8C2C7FD2C40099A627 /* ScheduleItemCardView.swift */,
 				CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */,
+				CBBE7F902C7FDF3B0099A627 /* CalendarView.swift */,
+				CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				CBBE7F782C7DA9E20099A627 /* CreateOrJoinTeamViewModel.swift in Sources */,
 				CBBE7F542C7827EA0099A627 /* FirebaseStorage.swift in Sources */,
 				CBBE7F762C7DA9940099A627 /* CreateOrJoinTeamView.swift in Sources */,
+				CBBE7F912C7FDF3B0099A627 /* CalendarView.swift in Sources */,
 				CBA4C15A2C7721E80033BA20 /* Todo.swift in Sources */,
 				CBA4C1462C76A4C70033BA20 /* DashboardView.swift in Sources */,
 				CBBE7F4B2C7824EE0099A627 /* ImagePicker.swift in Sources */,
@@ -426,6 +433,7 @@
 				CBBE7F862C7F01A50099A627 /* AddScheduleItemView.swift in Sources */,
 				CBBE7F8A2C7FCD130099A627 /* TeamDropdownMenuView.swift in Sources */,
 				CBA4C1542C77214C0033BA20 /* TeamMember.swift in Sources */,
+				CBBE7F932C7FDF520099A627 /* CalendarDayView.swift in Sources */,
 				CBBE7F582C78286D0099A627 /* ProfileView.swift in Sources */,
 				CBBE7F8D2C7FD2C40099A627 /* ScheduleItemCardView.swift in Sources */,
 				CBBE7F7A2C7DB3520099A627 /* CreateTeamView.swift in Sources */,

@@ -20,9 +20,15 @@ struct ScheduleView: View {
             NavigationStack {
                 VStack {
                     if let currentTeam = selectedTeamManager.currentTeam {
+                        // Calendar view
+                        CalendarView(selectedDate: $viewModel.selectedDate)
+                            .padding(.vertical)
+                            .environmentObject(viewModel)
+
+                        // Event list
                         ScrollView {
                             VStack(spacing: 10) {
-                                ForEach(viewModel.scheduleItems) { item in
+                                ForEach(viewModel.filteredScheduleItems) { item in
                                     NavigationLink(destination: ScheduleItemDetailView(scheduleItem: item)) {
                                         ScheduleItemCardView(item: item)
                                     }
@@ -38,24 +44,8 @@ struct ScheduleView: View {
                             .padding()
                     }
                 }
-                .navigationTitle(selectedTeamManager.currentTeam?.name ?? "No Team")
+                .navigationTitle("Schedule")
                 .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        HStack {
-                            Text(selectedTeamManager.currentTeam?.name ?? "No Team")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .onTapGesture {
-                                    viewModel.showDropdown.toggle()
-                                }
-                            Image(systemName: viewModel.showDropdown ? "chevron.up" : "chevron.down")
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
-                                .onTapGesture {
-                                    viewModel.showDropdown.toggle()
-                                }
-                        }
-                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         if isUserManager() {
                             Button("Add Event") {
@@ -95,6 +85,9 @@ struct ScheduleView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            viewModel.updateFilteredScheduleItems()
         }
     }
 
