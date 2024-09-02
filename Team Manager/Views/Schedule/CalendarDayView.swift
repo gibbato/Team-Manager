@@ -13,21 +13,25 @@ struct CalendarDayView: View {
     let hasEvents: Bool
 
     var body: some View {
-        VStack {
+        VStack(spacing: 2) { // Control the spacing between elements
             Text(dayString)
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(isSelected ? .white : .primary)
-                .padding(10)
+                .frame(width: 40, height: 40) // Fixed frame for alignment
                 .background(isSelected ? Color.blue : Color.clear)
                 .clipShape(Circle())
-
+            
             if hasEvents {
                 Circle()
                     .fill(Color.red)
                     .frame(width: 6, height: 6)
-                    .padding(.top, 2)
+                    .padding(.top, 2) // Add padding to ensure consistent spacing
+                    .offset(y: -14)
+            } else {
+                Spacer().frame(height: 6) // Add spacer to maintain consistent height
             }
         }
+        .frame(width: 40, height: 60) // Ensure each day takes up the same vertical space
     }
 
     private var dayString: String {
@@ -38,5 +42,12 @@ struct CalendarDayView: View {
 }
 
 #Preview {
-    CalendarDayView(date: Date(), isSelected: true, hasEvents: true)
+    // Mocked day view for preview
+    let mockDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+    return VStack {
+        CalendarDayView(date: mockDate, isSelected: true, hasEvents: true)
+        CalendarDayView(date: mockDate, isSelected: false, hasEvents: true)
+        CalendarDayView(date: mockDate, isSelected: false, hasEvents: false)
+    }
+    .padding()
 }

@@ -53,6 +53,7 @@
 		CBBE7F8F2C7FDC3B0099A627 /* ScheduleItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */; };
 		CBBE7F912C7FDF3B0099A627 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F902C7FDF3B0099A627 /* CalendarView.swift */; };
 		CBBE7F932C7FDF520099A627 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */; };
+		CBBE7F962C865D810099A627 /* OngoingGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE7F952C865D810099A627 /* OngoingGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		CBBE7F8E2C7FDC3B0099A627 /* ScheduleItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemDetailView.swift; sourceTree = "<group>"; };
 		CBBE7F902C7FDF3B0099A627 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
+		CBBE7F952C865D810099A627 /* OngoingGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 		CBA4C1352C76A3C70033BA20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBBE7F942C865D710099A627 /* Game */,
 				CBBE7F8B2C7FD0F90099A627 /* Schedule */,
 				CBBE7F6B2C7D49F50099A627 /* Profile */,
 				CBBE7F3D2C77E7EA0099A627 /* Roster */,
@@ -294,6 +297,14 @@
 				CBBE7F922C7FDF520099A627 /* CalendarDayView.swift */,
 			);
 			path = Schedule;
+			sourceTree = "<group>";
+		};
+		CBBE7F942C865D710099A627 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				CBBE7F952C865D810099A627 /* OngoingGameView.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,6 +439,7 @@
 				CBBE7F722C7D5AC00099A627 /* ScheduleView.swift in Sources */,
 				CBA4C1282C76A3360033BA20 /* Team_ManagerApp.swift in Sources */,
 				CBA4C15F2C7725230033BA20 /* FirestoreService.swift in Sources */,
+				CBBE7F962C865D810099A627 /* OngoingGameView.swift in Sources */,
 				CBBE7F682C7D22360099A627 /* SignUpView.swift in Sources */,
 				CBBE7F512C7827250099A627 /* ProfileController.swift in Sources */,
 				CBBE7F862C7F01A50099A627 /* AddScheduleItemView.swift in Sources */,

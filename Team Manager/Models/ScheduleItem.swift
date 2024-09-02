@@ -12,8 +12,17 @@ struct ScheduleItem: Codable, Identifiable {
     var title: String
     var date: Date
     var type: ScheduleItemType
-    var teamID: String // The ID of the team this item belongs to
-    var confirmations: [String: Bool] = [:] // Key: Player ID, Value: Confirmation status (true/false)
+    var teamID: String
+    var confirmations: [String: Bool] = [:]
+    
+    // Game-specific properties
+    var location: String? = nil
+    
+    // Determine if the game is ongoing based on the current date and time
+    var isGameOngoing: Bool {
+        let now = Date()
+        return now >= date && now <= Calendar.current.date(byAdding: .hour, value: 2, to: date)!
+    }
 }
 
 enum ScheduleItemType: String, Codable {

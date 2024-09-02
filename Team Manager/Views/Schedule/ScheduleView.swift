@@ -21,20 +21,18 @@ struct ScheduleView: View {
                 VStack {
                     if let currentTeam = selectedTeamManager.currentTeam {
                         // Calendar view
-                        CalendarView(selectedDate: $viewModel.selectedDate)
+                        CalendarView(selectedDate: $viewModel.selectedDate, events: viewModel.eventDates)
                             .padding(.vertical)
-                            .environmentObject(viewModel)
-
+                        
                         // Event list
                         ScrollView {
                             VStack(spacing: 10) {
                                 ForEach(viewModel.filteredScheduleItems) { item in
-                                    NavigationLink(destination: ScheduleItemDetailView(scheduleItem: item)) {
+                                    NavigationLink(destination: viewModel.isGameOngoing(item) ? AnyView(OngoingGameView(scheduleItem: item)) : AnyView(ScheduleItemDetailView(scheduleItem: item))) {
                                         ScheduleItemCardView(item: item)
                                     }
                                 }
                             }
-                            .padding(.top)
                         }
                         .onAppear {
                             viewModel.loadScheduleItems(for: currentTeam.id)

@@ -14,31 +14,33 @@ class ScheduleViewModel: ObservableObject {
     @Published var currentTeam: Team?
     @Published var scheduleItems: [ScheduleItem] = []
     @Published var filteredScheduleItems: [ScheduleItem] = []
-    @Published var selectedDate = Date() {
-        didSet {
-            updateFilteredScheduleItems()
-        }
-    }
-    @Published var eventDates: Set<Date> = []
     @Published var showDropdown = false
+    @Published var selectedDate = Date()
     @Published var errorMessage: String?
 
     private let firestoreService = FirestoreService()
 
-    func loadTeams(for userID: String) {
-        firestoreService.fetchTeams(for: userID) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let teams):
-                    self?.userTeams = teams
-                    self?.currentTeam = teams.first
-                case .failure(let error):
-                    self?.errorMessage = "Failed to load teams: \(error.localizedDescription)"
-                }
-            }
-        }
+    // Computed property to get all dates with events
+    var eventDates: [Date] {
+        return scheduleItems.map { $0.date }
     }
 
+    // Load teams for the current user
+    func loadTeams(for userID: String) {
+          firestoreService.fetchTeams(for: userID) { [weak self] result in
+              DispatchQueue.main.async {
+                  switch result {
+                  case .success(let teams):
+                      self?.userTeams = teams
+                      self?.currentTeam = teams.first
+                  case .failure(let error):
+                      self?.errorMessage = "Failed to load teams: \(error.localizedDescription)"
+                  }
+              }
+          }
+      }
+
+    // Create a new team
     func createTeam(withName teamName: String, managerID: String) {
         firestoreService.createTeam(name: teamName, managerID: managerID) { [weak self] result in
             DispatchQueue.main.async {
@@ -52,6 +54,7 @@ class ScheduleViewModel: ObservableObject {
         }
     }
 
+    // Join a team using the invitation code
     func joinTeam(withCode invitationCode: String, userID: String) {
         firestoreService.joinTeam(byCode: invitationCode, memberID: userID, role: "player") { [weak self] result in
             DispatchQueue.main.async {
@@ -65,6 +68,7 @@ class ScheduleViewModel: ObservableObject {
         }
     }
 
+    // Check if the current user is a manager of the current team
     var isManager: Bool {
         guard let currentTeam = currentTeam else { return false }
         return currentTeam.managerID == AuthController().userId
@@ -84,6 +88,25 @@ class ScheduleViewModel: ObservableObject {
         }
     }
 
+    // Update the filtered items to show events for the current week
+    func updateFilteredScheduleItems() {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: selectedDate)
+        let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfDay)!
+        
+        filteredScheduleItems = scheduleItems.filter {
+            $0.date >= startOfDay && $0.date <= endOfWeek
+        }
+    }
+
+    func isGameOngoing(_ item: ScheduleItem) -> Bool {
+        // Assuming a game duration of 2 hours for simplicity
+        let gameDuration: TimeInterval = 2 * 60 * 60
+        let gameEndDate = item.date.addingTimeInterval(gameDuration)
+        return item.type == .game && Date() >= item.date && Date() <= gameEndDate
+    }
+
+    
     func confirmAttendance(for item: ScheduleItem, playerID: String, willAttend: Bool) {
         firestoreService.updateAttendanceConfirmation(for: item.id, playerID: playerID, willAttend: willAttend) { [weak self] result in
             switch result {
@@ -110,10 +133,5 @@ class ScheduleViewModel: ObservableObject {
                 }
             }
         }
-    }
-
-    func updateFilteredScheduleItems() {
-        filteredScheduleItems = scheduleItems.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
-        eventDates = Set(scheduleItems.map { Calendar.current.startOfDay(for: $0.date) })
     }
 }

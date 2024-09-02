@@ -23,7 +23,7 @@ struct ScheduleItemCardView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.white)
+        .background(Color.veryLightGray)
         .cornerRadius(10)
         .shadow(radius: 2)
         .padding([.horizontal])
